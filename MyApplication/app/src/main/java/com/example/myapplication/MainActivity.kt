@@ -18,11 +18,17 @@ class MainActivity : AppCompatActivity() { //an activity represent a single scre
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
-        // layout
+        setContentView(R.layout.activity_main) // Make sure you have this layout
 
-        val greeting = greetingService.getGreeting("Karan")
-        Log.d("MainActivity","Greeting: $greeting")
+        // 3. Use the injected GreetingService
+        val greeting = greetingService.getGreeting("Hilt User")
+        Log.d("MainActivity", "Greeting: $greeting") // Output to Logcat
 
+        // (Optional) Display the greeting in a TextView
+        val greetingTextView = findViewById<android.widget.TextView>(R.id.greetingTextView) //  findViewById
+        if (greetingTextView != null) {
+            greetingTextView.text = greeting;
+        }
 
 
     }
