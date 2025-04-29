@@ -10,6 +10,9 @@ activityCompose = "1.8.0"
 composeBom = "2024.09.00"
 appcompat = "1.7.0"
 constraintlayout = "2.2.1"
+room_version = "2.7.1"
+hilt_version = "2.51.1"
+roomCommonJvm = "2.7.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,15 +29,17 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
-hilt-android = { module = "com.google.dagger:hilt-android" , version= "2.51.1"}
-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler" , version= "2.51.1"}
+hilt-android = { module = "com.google.dagger:hilt-android" , version= "hilt_version"}
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler" , version= "hilt_version"}
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-
+androidx-room-ktx ={ group = "androidx.room",name ="room-ktx", version.ref= "room_version"}
+androidx-room-compiler={group ="androidx.room", name ="room-compiler", version.ref= "room_version"}
+androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-hilt = { id ="com.google.dagger.hilt.android", version= "2.51.1"} #latest version
+hilt = { id ="com.google.dagger.hilt.android", version= "hilt_version"} #latest version
 
