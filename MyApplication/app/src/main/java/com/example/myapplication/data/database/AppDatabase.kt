@@ -18,6 +18,7 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object{
+        @JvmField
         internal const val DATABASE_NAME="app_database"
     }
 
