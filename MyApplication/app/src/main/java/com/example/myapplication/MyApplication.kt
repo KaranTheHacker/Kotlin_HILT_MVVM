@@ -9,5 +9,8 @@ class MyApplication:Application() {
     override fun onCreate() {
         super.onCreate()
         Log.d("MyApplication","Application class created")
+        userDao.getALL().observe(this){
+
+        }
     }
 }

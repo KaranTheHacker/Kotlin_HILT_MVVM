@@ -6,12 +6,13 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.myapplication.data.entity.User
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao{
 
-    @Query("SELECT * FROM users")
-    fun getAll():List<User>
+    @Query("SELECT * FROM users ORDER BY uid DESC")
+    fun getAll():Flow<List<User>>
 
     @Query("SELECT * FROM users WHERE uid IN (:userIds)")
     fun loadAllByIds(userIds: IntArray):List<User>
