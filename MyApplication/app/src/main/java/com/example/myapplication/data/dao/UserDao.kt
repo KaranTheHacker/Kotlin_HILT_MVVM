@@ -1,5 +1,6 @@
 package com.example.myapplication.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -12,13 +13,16 @@ import kotlinx.coroutines.flow.Flow
 interface UserDao{
 
     @Query("SELECT * FROM users ORDER BY uid DESC")
-    fun getAll():Flow<List<User>>
+    fun getAllUserFlow():Flow<List<User>>
+
+    @Query("SELECT * FROM users")
+    fun getAllUsersLiveData(): LiveData<List<User>>
 
     @Query("SELECT * FROM users WHERE uid IN (:userIds)")
     fun loadAllByIds(userIds: IntArray):List<User>
 
-    @Query("SELECT TOP 1 * FROM users WHERE first_name LIKE :first AND last_name LIKE :last")  //ORDER BY uid DESC LIMIT 1
-    fun findByName(first:String, last:String):User
+//    @Query(value = "SELECT TOP 1 * FROM users WHERE first_name LIKE :first AND last_name LIKE :last")  //ORDER BY uid DESC LIMIT 1
+//    fun findByName(first:String, last:String):User
 
     @Insert
     fun insertAll(vararg users:User)
