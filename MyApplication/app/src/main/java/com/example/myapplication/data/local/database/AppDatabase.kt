@@ -1,6 +1,5 @@
-package com.example.myapplication.data.database
+package com.example.myapplication.data.local.database
 
-import androidx.lifecycle.AndroidViewModel
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -8,8 +7,8 @@ import androidx.room.migration.Migration
 import androidx.room.processor.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.myapplication.MyApplication
-import com.example.myapplication.data.dao.UserDao
-import com.example.myapplication.data.entity.User
+import com.example.myapplication.data.local.dao.UserDao
+import com.example.myapplication.data.local.entity.User
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +24,7 @@ abstract class AppDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase?=null
 
-        fun getInstance(context: Context): AppDatabase{
+        fun getInstance(context: MyApplication): AppDatabase{
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
@@ -46,9 +45,7 @@ abstract class AppDatabase: RoomDatabase() {
                 database.execSQL("ALTER TABLE users ADD COLUMN email TEXT")
             }
         }
-
     }
-
 }
 
 @Module
