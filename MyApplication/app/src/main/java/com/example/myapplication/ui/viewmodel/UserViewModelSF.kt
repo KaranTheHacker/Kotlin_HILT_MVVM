@@ -1,32 +1,48 @@
 package com.example.myapplication.ui.viewmodel
 
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.MyApplication
 import com.example.myapplication.data.local.dao.UserDao
 import com.example.myapplication.data.local.database.AppDatabase
 import com.example.myapplication.data.local.entity.User
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UserViewModel (application: MyApplication): AndroidViewModel(application) {
-
+@HiltViewModel
+class UserViewModelSF @Inject constructor(
     private val userDao: UserDao
-    val allUsersLiveData: LiveData<List<User>>
+): ViewModel() {
+    val allUsersStateFlow: StateFlow<List<User>>
     private val database: AppDatabase
+    private val _allUserStateFlow = MutableStateFlow<List<User>>(emptyList())
 
     //initialData ->livedata
     init {
         database = AppDatabase.getInstance(application)
-        userDao = database.userDao()
-        allUsersLiveData =userDao.getAllUsersLiveData()
+//        userDao = database.userDao()
+        allUsersStateFlow =_allUserStateFlow.asStateFlow()
+        observeUser()
+        insertInitialData()
+    }
+
+    private fun observeUser(){
+        viewModelScope.launch {
+            userDao.getAllUserFlow().collect { _allUserStateFlow.value = it }
+        }
     }
 
     private fun insertInitialData(){
         viewModelScope.launch(Dispatchers.IO) {
-            //true != false --> true
-            if(userDao.getAllUsersLiveData().value?.isEmpty() != false){
+            //true != false  -> true
+            if(userDao.getAllUserFlow().first().isEmpty()){
                 userDao.insertUser(User(firstName = "Karan", lastName = "Saxena", email = "saxenakaran1239@gmail.com"))
                 userDao.insertUser(User(firstName = "Vijay", lastName = "Varma", email = "@gmail.com"))
             }

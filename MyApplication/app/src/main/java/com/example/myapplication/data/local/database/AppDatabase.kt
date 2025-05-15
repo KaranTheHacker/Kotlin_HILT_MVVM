@@ -47,17 +47,3 @@ abstract class AppDatabase: RoomDatabase() {
         }
     }
 }
-
-@Module
-@InstallIn(SingletonComponent::class)
-object AppModule{
-    @Provides
-    @Singleton
-    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase{
-        return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,//klass
-            AppDatabase.DATABASE_NAME
-        ).fallbackToDestructiveMigration().build()
-    }
-}
