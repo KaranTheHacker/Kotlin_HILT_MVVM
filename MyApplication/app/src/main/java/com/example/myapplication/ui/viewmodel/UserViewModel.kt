@@ -1,26 +1,24 @@
 package com.example.myapplication.ui.viewmodel
 
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.MyApplication
 import com.example.myapplication.data.local.dao.UserDao
-import com.example.myapplication.data.local.database.AppDatabase
 import com.example.myapplication.data.local.entity.User
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UserViewModel (application: MyApplication): AndroidViewModel(application) {
-
+@HiltViewModel
+class UserViewModel @Inject constructor(
     private val userDao: UserDao
-    val allUsersLiveData: LiveData<List<User>>
-    private val database: AppDatabase
+) : ViewModel() {
 
-    //initialData ->livedata
-    init {
-        database = AppDatabase.getInstance(application)
-        userDao = database.userDao()
-        allUsersLiveData =userDao.getAllUsersLiveData()
+    val allUsersLiveData: LiveData<List<User>> = userDao.getAllUsersLiveData()
+
+    init{
+        insertInitialData()
     }
 
     private fun insertInitialData(){

@@ -1,11 +1,8 @@
 package com.example.myapplication.ui.viewmodel
 
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.MyApplication
 import com.example.myapplication.data.local.dao.UserDao
-import com.example.myapplication.data.local.database.AppDatabase
 import com.example.myapplication.data.local.entity.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,13 +18,10 @@ class UserViewModelSF @Inject constructor(
     private val userDao: UserDao
 ): ViewModel() {
     val allUsersStateFlow: StateFlow<List<User>>
-    private val database: AppDatabase
     private val _allUserStateFlow = MutableStateFlow<List<User>>(emptyList())
 
     //initialData ->livedata
     init {
-        database = AppDatabase.getInstance(application)
-//        userDao = database.userDao()
         allUsersStateFlow =_allUserStateFlow.asStateFlow()
         observeUser()
         insertInitialData()

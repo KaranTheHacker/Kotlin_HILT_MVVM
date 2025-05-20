@@ -2,9 +2,12 @@ package com.example.myapplication.ui.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.R
+import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.viewmodel.UserViewModel
 import com.example.myapplication.ui.viewmodel.UserViewModelSF
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,9 +17,9 @@ import kotlin.random.Random
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() { //an activity represent a single screen with a user interface
 
-//    private lateinit var userViewModel: UserViewModel
-    private lateinit var userViewModel: UserViewModelSF
-    private lateinit var binding:ActivityMainBinding
+    private lateinit var userViewModel: UserViewModel
+//    private lateinit var userViewModel: UserViewModelSF
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) { //lifecycle method
         super.onCreate(savedInstanceState)
@@ -29,13 +32,30 @@ class MainActivity : AppCompatActivity() { //an activity represent a single scre
         val addUserButton = binding.addUserButton
         val clearButton = binding.clearButton
 
-        //Observer Stateflow
-        lifecycleScope.launch {
-            userViewModel.allUsersStateFlow.collect { users ->
-                val userList = users.joinToString("\n"){"${it.firstName} ${it.lastName} ${(it.email ?: "No Email" )}"}
-                userListTextView.text ="Users: \n $userList"
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+
+        //Observe LiveModel
+        userViewModel.allUsersLiveData.observe(this){
+            users ->
+            val userList = users.joinToString("\n"){
+                "${it.firstName} ${it.lastName}:- ${(it.email ?: "No Email" )}"
+            }
+            binding.userListTextView.text = buildString {
+                append("Users: \n ")
+                append(userList)
             }
         }
+//
+//        //Observer Stateflow
+//        lifecycleScope.launch {
+//            userViewModel.allUsersStateFlow.collect { users ->
+//                val userList = users.joinToString("\n"){"${it.firstName} ${it.lastName} ${(it.email ?: "No Email" )}"}
+//                userListTextView.text = buildString {
+//                                                    append("Users: \n ")
+//                                                    append(userList)
+//                                                }
+//            }
+//        }
 
         //Observe LiveData
 //        userViewModel.allUsersLiveData.observe(this) {
