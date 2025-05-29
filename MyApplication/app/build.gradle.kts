@@ -38,7 +38,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
-//        compose = true
+        compose = true
     }
 }
 
@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.runtime.livedata)
 
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -76,5 +77,6 @@ dependencies {
 
     //HILT
     implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
 }
