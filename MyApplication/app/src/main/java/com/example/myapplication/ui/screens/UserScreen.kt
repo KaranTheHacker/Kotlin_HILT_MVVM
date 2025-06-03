@@ -39,7 +39,6 @@ fun UserListScreen(viewModel: UserViewModel = hiltViewModel()) {
 //    )
     Column(
         modifier = Modifier
-            .fillMaxWidth(0.5f)
             .fillMaxSize()
             .padding(16.dp), // density pixel -> 1 dp = 1 pixel on 160 dpi screen(base)
                                 // 320 dpi -> 1dp = 2actual -> 480 dpi -> 3

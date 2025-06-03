@@ -17,7 +17,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 
-@Database(entities = [User::class], version = 2)
+@Database(entities = [User::class], version = 2, exportSchema = true)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao
 
