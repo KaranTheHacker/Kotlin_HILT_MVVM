@@ -1,38 +1,35 @@
 package com.example.myapplication.ui.activity
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.runtime.Composable
-import androidx.compose.material3.Text
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import com.example.myapplication.R
-import com.example.myapplication.databinding.ActivityMainBinding
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication.ui.navigation.BottomNavGraph
 import com.example.myapplication.ui.screens.UserListScreen
+import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.example.myapplication.ui.viewmodel.UserViewModel
-import com.example.myapplication.ui.viewmodel.UserViewModelSF
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 //Compose
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() { //an activity represent a single screen with a user interface
+class MainActivity : ComponentActivity() { //an activity represent a single screen with a user interface
 
-    private lateinit var userViewModel: UserViewModel
+//    private var userViewModel: UserViewModel by viewModels()
 //    private lateinit var userViewModel: UserViewModelSF
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState) //lifecycle method
         setContent {
-            UserListScreen()
+            MyApplicationTheme {
+                Surface (modifier = Modifier.fillMaxSize()){
+                    BottomNavGraph()
+                }
+            }
+//            UserListScreen()
         }
     }
 }

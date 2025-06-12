@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+
 //    kotlin("kapt") // For annotation processing
 }
 
@@ -76,6 +77,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.androidx.navigation.compose)
 
     // Hilt
     implementation(libs.hilt.android)
@@ -85,6 +87,10 @@ dependencies {
     // AndroidX Compat and ConstraintLayout
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
+
+    // Retrofit
+    implementation(libs.retrofit.runtime)
+    implementation(libs.retrofit.converter.gson)
 
     // Room
     implementation(libs.androidx.room.ktx)
