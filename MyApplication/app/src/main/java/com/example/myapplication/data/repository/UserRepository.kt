@@ -22,6 +22,12 @@ class UserRepository @Inject constructor(
         userDao.deleteALL()
     }
 
+    //Retrofit Api function
+//    suspend fun getWeatherData(): List<> {
+//        val response = apiService.getWeatherForecast()
+//        return response.forecast
+//    }
+
 //    fun getUser(id:Int): Flow<User>{
 //        return if(isOnline()){
 //            flow{emit(apiService.getUser(id))}
