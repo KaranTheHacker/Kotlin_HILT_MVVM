@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.myapplication.data.local.dao.UserDao
 import com.example.myapplication.data.local.entity.User
 import com.example.myapplication.data.remote.api.ApiService
+
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -23,10 +24,9 @@ class UserRepository @Inject constructor(
     }
 
     //Retrofit Api function
-//    suspend fun getWeatherData(): List<> {
-//        val response = apiService.getWeatherForecast()
-//        return response.forecast
-//    }
+    suspend fun getWeatherForecast(location: String, days: Int = 7) =
+        apiService.getWeatherForecast("TBD", location, days)
+
 
 //    fun getUser(id:Int): Flow<User>{
 //        return if(isOnline()){

@@ -1,3 +1,11 @@
+import java.util.Properties
+
+val properties = Properties().apply{
+    load(project.rootProject.file("local.properties").inputStream())
+}
+val weatherApiKey = properties["WEATHER_API_KEY"]?.toString()
+    ?: throw GradleException("I can't find WEATHER_API_KEY")
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -18,6 +26,8 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField("String","WEATHER_API_KEY","\"$weatherApiKey\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -44,6 +54,7 @@ android {
     buildFeatures {
         viewBinding = true
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.agp.get() // Using AGP version as a proxy, or align with actual Compose compiler version if different
@@ -78,6 +89,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.coil.compose)
+
 
     // Hilt
     implementation(libs.hilt.android)
