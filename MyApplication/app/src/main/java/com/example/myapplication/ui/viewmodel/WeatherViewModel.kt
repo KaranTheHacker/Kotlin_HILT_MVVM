@@ -24,7 +24,7 @@ class WeatherViewModel @Inject constructor(
                 val response = repository.getWeatherForecast(location)
                 _forecast.value = response.forecast.forecastDay
             } catch (e: Exception) {
-                // Log or show error
+                e.printStackTrace()
             }
         }
     }

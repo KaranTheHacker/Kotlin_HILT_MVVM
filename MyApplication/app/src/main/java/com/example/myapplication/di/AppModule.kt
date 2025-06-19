@@ -36,19 +36,4 @@ object AppModule {
             .addMigrations(AppDatabase.MIGRATION_1_2)
             .build()
     }
-
-    @Provides
-    @Singleton
-    fun provideApiService(): ApiService {
-        return Retrofit.Builder()
-            .baseUrl("https://api.weatherapi.com/v1/") // example
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
-    }
-
-    @Provides
-    fun provideUserRepository(userDao: UserDao,apiService: ApiService): UserRepository{
-        return UserRepository(userDao, apiService)
-    }
 }

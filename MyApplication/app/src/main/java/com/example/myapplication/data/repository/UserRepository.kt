@@ -1,6 +1,7 @@
 package com.example.myapplication.data.repository
 
 import androidx.lifecycle.LiveData
+import com.example.myapplication.BuildConfig
 import com.example.myapplication.data.local.dao.UserDao
 import com.example.myapplication.data.local.entity.User
 import com.example.myapplication.data.remote.api.ApiService
@@ -25,7 +26,7 @@ class UserRepository @Inject constructor(
 
     //Retrofit Api function
     suspend fun getWeatherForecast(location: String, days: Int = 7) =
-        apiService.getWeatherForecast("TBD", location, days)
+        apiService.getWeatherForecast(BuildConfig.WEATHER_API_KEY, location, days)
 
 
 //    fun getUser(id:Int): Flow<User>{
